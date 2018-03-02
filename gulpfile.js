@@ -19,7 +19,7 @@ gulp.task('watch', ['ts', 'js'], function() {
 	gulp.watch(['src/*.ts', 'src/*.js'], ['ts', 'js']);
 });
 
-gulp.task('serve', ['watch'], function() {
+gulp.task('dev', ['watch'], function() {
 	return nodemon({
 		script: "build/server.js"
 	})
