@@ -2,10 +2,12 @@
 
 import * as express from "express";
 import * as morgan from "morgan";
+import * as apiRouter from "./ApiRouter"
 
 export class Server
 {
     public app: any; 
+    private router: apiRouter.ApiRouter;
 
     constructor()
     {
@@ -21,10 +23,9 @@ export class Server
     }
 
     InitRouter()
-    {
-        this.app.get('/', function(req, res) {		
-            res.status(200).json({'x': 'y12345'});		
-        });        
+    {        
+        this.router = new apiRouter.ApiRouter();
+        this.router.Register(this, '/api');
     }
 
     Listen(port:number)
