@@ -7,6 +7,6 @@ class X
 	
 	constructor()
 	{
-		a = 1;
+		a = 3;
 	}
 }

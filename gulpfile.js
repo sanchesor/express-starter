@@ -15,12 +15,11 @@ gulp.task('ts', function() {
 		.pipe(gulp.dest('build'));
 });
 
-gulp.task('watch', ['ts', 'js'], function() {
-	gulp.watch(['src/*.ts', 'src/*.js'], ['ts', 'js']);
-});
-
-gulp.task('dev', ['watch'], function() {
+gulp.task('dev', function() {
 	return nodemon({
-		script: "build/server.js"
+		script: "build/server.js",
+		watch: "src/*",
+		ext: "js ts",
+		tasks: ['ts', 'js']
 	})
 })
