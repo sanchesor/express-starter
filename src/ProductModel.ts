@@ -1,17 +1,42 @@
+import * as ds from "./DataStore";
+import { DataStore } from './DataStore';
+
 export class ProductModel
 {    
-    public GetAll()
+    private db: DataStore;
+
+    constructor()
     {
-        return [
-                {'id':1, name:'p1'},
-                {'id':2, name:'p2'}
-            ];
+        this.db = new ds.DataStore();
+        this.db.Execute(
+            'create table if not exists product (id_product integer primary key, name text not null)');
+                
+        this.db.Execute('insert into product (name) values ("test1")')
     }
 
-    public GetById(id:number)
+    public GetAll(callback)
     {
-        if(id==1) return  {'id':1, name:'p1'};
-        else return {'id':2, name:'p2'};
+        this.db.GetAll('select * from product', function(results) {
+            callback(results);
+        })
+    }
+
+    public GetById(id:number, callback)
+    {
+        let query = `select * from product where id_product = ${id}`;
+        this.db.Get(query, function(prod) {
+            callback(prod);
+        })
+    }
+
+    public Add(product, callback)
+    {
+        let name = product.name;
+        let query = `insert into product (name) values ("${name}")`;
+        this.db.GetExecuteLastId(query, (lastId)=>{
+            callback(lastId);
+        })        
+
     }
 }
 
