@@ -1,7 +1,7 @@
 "use strict";
 
 import * as express from "express";
-//import morgan from "morgan";
+import * as morgan from "morgan";
 
 export class Server
 {
@@ -22,7 +22,7 @@ export class Server
 
     InitMiddleware()
     {
-//         this.app.use(morgan('dev'));
+         this.app.use(morgan('dev'));
     }
 
     InitRouter()
