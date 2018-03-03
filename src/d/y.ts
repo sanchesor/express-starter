@@ -1,12 +1,12 @@
 var a;
 var b;
 
-class X
+class Y
 {
 	a: string
 	
 	constructor()
 	{
-		a = 33;
+		a = 3;
 	}
 }
