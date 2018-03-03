@@ -1,4 +1,4 @@
 ﻿var server = require("./Server")
 
-var s = server.Server.CreateServer();
+var s = new server.Server();
 s.Listen(8080);

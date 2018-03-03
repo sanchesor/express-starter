@@ -15,11 +15,6 @@ export class Server
         this.InitRouter();
     }
 
-    public static CreateServer(): Server
-    {
-        return new Server();
-    }
-
     InitMiddleware()
     {
          this.app.use(morgan('dev'));
