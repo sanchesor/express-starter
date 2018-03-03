@@ -11,7 +11,9 @@ gulp.task('js', function() {
 gulp.task('ts', function() {
 	return gulp.src('src/**/*.ts')
 		.pipe(ts({
-			noImplicitAny: true}))
+			noImplicitAny: false,
+			module: "commonjs",
+			target: "es6"}))
 		.pipe(gulp.dest('build'));
 });
 
