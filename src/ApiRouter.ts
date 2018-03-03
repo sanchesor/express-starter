@@ -50,6 +50,10 @@ export class ApiRouter
             });
         })
 
+        this.expressRouter.post('/product/clear', function(req, res) {
+            product.Clear();
+            res.status(200).json({'status':'ok'});
+        })
     }
     
     

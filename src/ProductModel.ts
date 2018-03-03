@@ -36,7 +36,11 @@ export class ProductModel
         this.db.GetExecuteLastId(query, (lastId)=>{
             callback(lastId);
         })        
+    }
 
+    public Clear(callback)
+    {
+        this.db.Execute("delete from product");
     }
 }
 
