@@ -31,37 +31,39 @@ export class ApiRouter
 
         let product = this.productModel;
         this.expressRouter.get('/product', function(req, res, next) {            
-            product.GetAll((results) => {
+            product.GetAll((err, results) => {
                 res.status(200).json({'products': results});
             });
         });
 
         this.expressRouter.get('/product/:id_product', function(req, res, next) {
-            product.GetById(req.params.id_product, (prod) => {
+            product.GetById(req.params.id_product, (err, prod) => {
                 res.status(200).json(prod);
             })
         })
 
         this.expressRouter.put('/product', function(req, res) {
             product.Add(req.body, (lastId) => {
-                product.GetById(lastId, (prod) => {
-                    res.status(200).json(prod);
+                product.GetById(lastId, (err, prod) => {
+                    res.status(201).json(prod);
                 })
             });
         })
 
         this.expressRouter.post('/product/:id_product', function(req, res) {
-            product.Update(req.body, (lastId) => {
-                res.status(200).json({'status':'ok'});
+            product.Update(req.params.id_product, req.body, (err) => {
+                res.status(200).json();
             });
         })        
 
-        this.expressRouter.post('/product/clear', function(req, res) {
-            product.Clear((lastId) => {
-                res.status(200).json({'status':'ok'});
+        this.expressRouter.delete('/product/:id_product', function(req, res) {
+            product.Delete(req.params.id_product, (err) => {
+                if(err)
+                    res.status(204).json();
+                else
+                    res.status(200).json();
             });
-            
-        })
+        })        
     }
     
     

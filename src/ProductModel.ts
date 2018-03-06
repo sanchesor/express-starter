@@ -11,21 +11,20 @@ export class ProductModel
         this.db.Execute(
             'create table if not exists product (id_product integer primary key, name text not null)', null);
                 
-        this.db.Execute('insert into product (name) values ("test1")', null)
     }
 
     public GetAll(callback)
     {
-        this.db.GetAll('select * from product', function(results) {
-            callback(results);
+        this.db.GetAll('select * from product', function(err, results) {
+            callback(err, results);
         })
     }
 
     public GetById(id:number, callback)
     {
         let query = `select * from product where id_product = ${id}`;
-        this.db.Get(query, function(prod) {
-            callback(prod);
+        this.db.Get(query, function(err, prod) {
+            callback(err, prod);
         })
     }
 
@@ -33,27 +32,27 @@ export class ProductModel
     {
         let name = product.name;
         let query = `insert into product (name) values ("${name}")`;
-        this.db.GetExecuteLastId(query, (lastId)=>{
-            callback(lastId);
+        this.db.GetExecuteLastId(query, (err, lastId)=>{
+            callback(err, lastId);
         })        
     }
 
-    public Update(product, callback)
+    public Update(id:number, product, callback)
     {
-        let id = product.id_product;
         let name = product.name;
 
         let query = `update product set name = "${name}" where id_product = ${id}`;
-        this.db.Execute(query, (lastId)=>{
-            callback(lastId);
+        this.db.Execute(query, (err)=>{
+            callback(err);
         })        
     }    
 
-    public Clear(callback)
+    public Delete(id:number, callback)
     {
-        this.db.Execute("delete from product", (lastId) => {
-            callback(lastId);
-        });
-    }
+        let query = `delete from product where id_product = ${id}`;
+        this.db.Execute(query, (err)=>{
+            callback(err);
+        })        
+    }    
 }
 

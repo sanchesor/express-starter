@@ -13,7 +13,10 @@ export class DataStore
     {
         this.db.run(query, function(err) {
             if(callback != null)
-                callback(this.lastID);
+                if(this != null)
+                    callback(err, this.lastID);
+                else
+                    callback(err);
         });
     }
 
@@ -21,7 +24,10 @@ export class DataStore
     {
         this.db.run(query, function(err) {
             if(callback != null)
-                callback(this.lastID)
+                if(this != null)
+                    callback(err, this.lastID);
+                else
+                    callback(err);
         });
     }    
 
@@ -29,7 +35,7 @@ export class DataStore
     {        
         this.db.all(query, (err, rows) => {            
             if(callback != null)
-                callback(rows);            
+                callback(err, rows);            
         });        
     }
 
@@ -37,7 +43,7 @@ export class DataStore
     {        
         this.db.get(query, (err, row) => {            
             if(callback != null)
-                callback(row);            
+                callback(err, row);            
         });        
     }
 }
