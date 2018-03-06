@@ -9,9 +9,9 @@ export class ProductModel
     {
         this.db = new ds.DataStore();
         this.db.Execute(
-            'create table if not exists product (id_product integer primary key, name text not null)');
+            'create table if not exists product (id_product integer primary key, name text not null)', null);
                 
-        this.db.Execute('insert into product (name) values ("test1")')
+        this.db.Execute('insert into product (name) values ("test1")', null)
     }
 
     public GetAll(callback)
@@ -38,9 +38,22 @@ export class ProductModel
         })        
     }
 
+    public Update(product, callback)
+    {
+        let id = product.id_product;
+        let name = product.name;
+
+        let query = `update product set name = "${name}" where id_product = ${id}`;
+        this.db.Execute(query, (lastId)=>{
+            callback(lastId);
+        })        
+    }    
+
     public Clear(callback)
     {
-        this.db.Execute("delete from product");
+        this.db.Execute("delete from product", (lastId) => {
+            callback(lastId);
+        });
     }
 }
 

@@ -9,29 +9,35 @@ export class DataStore
         this.db = new sqlite3.Database('database.db');
     }
 
-    public Execute(query:string)
+    public Execute(query:string, callback)
     {
-        this.db.run(query);
+        this.db.run(query, function(err) {
+            if(callback != null)
+                callback(this.lastID);
+        });
     }
 
     public GetExecuteLastId(query:string, callback)
     {
         this.db.run(query, function(err) {
-            callback(this.lastID)
+            if(callback != null)
+                callback(this.lastID)
         });
     }    
 
     public GetAll(query:string, callback)
     {        
         this.db.all(query, (err, rows) => {            
-            callback(rows);            
+            if(callback != null)
+                callback(rows);            
         });        
     }
 
     public Get(query:string, callback)
     {        
         this.db.get(query, (err, row) => {            
-            callback(row);            
+            if(callback != null)
+                callback(row);            
         });        
     }
 }

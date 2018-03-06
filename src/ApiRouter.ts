@@ -50,9 +50,17 @@ export class ApiRouter
             });
         })
 
+        this.expressRouter.post('/product/:id_product', function(req, res) {
+            product.Update(req.body, (lastId) => {
+                res.status(200).json({'status':'ok'});
+            });
+        })        
+
         this.expressRouter.post('/product/clear', function(req, res) {
-            product.Clear();
-            res.status(200).json({'status':'ok'});
+            product.Clear((lastId) => {
+                res.status(200).json({'status':'ok'});
+            });
+            
         })
     }
     
